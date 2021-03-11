@@ -1,6 +1,6 @@
-# Inventory hash is used to represent all items that could be purchased, with a
+# ADD_GST hash is used to represent all items that could be purchased, with a
 # value set for if this item attracts GST
-INVENTORY = {
+ADD_GST = {
   'book' => false,
   'music CD' => true,
   'chocolate bar' => false,

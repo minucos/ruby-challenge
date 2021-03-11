@@ -23,7 +23,7 @@ class LoadBasket
       imported = true if name.delete('imported')
       name = name.join(' ')
       taxes = []
-      taxes << gst if INVENTORY[name]
+      taxes << gst if ADD_GST[name]
       taxes << import if imported
 
       item = Item.new(qty: qty, name: name, price: price, imported: imported, taxes: taxes)

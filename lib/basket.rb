@@ -1,4 +1,4 @@
-require_relative "inventory"
+require_relative "gst_list"
 require_relative "receipt"
 
 class Basket
