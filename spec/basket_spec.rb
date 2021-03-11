@@ -20,4 +20,16 @@ describe Basket do
       expect(basket.items).to include([1, 'chocolates', 5.0, imported: true])
     end
   end
+
+  describe "#calc_item_tax" do
+    it "takes a price and tax rate as arguments" do
+      expect { basket.calc_item_tax(50,10) }.not_to raise_error
+      expect { basket.calc_item_tax(50) }.to raise_error(ArgumentError)
+    end
+    it "calculates the tax for item" do
+      item_tax = basket.calc_item_tax(50,10)
+
+      expect(item_tax).to be(5.00)
+    end
+  end
 end
