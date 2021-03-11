@@ -1,9 +1,10 @@
 require "item"
+require "tax"
 
 describe Item do
   let(:gst) { Tax.new("GST",10)}
   let(:import) { Tax.new("import",5)}
-  subject(:item) { Item.new(name: 'cookies', price: 10, taxes: [gst, import])}
+  subject(:item) { Item.new(qty: 1, name: 'cookies', price: 10, taxes: [gst, import], imported: true)}
   describe "#initialize" do
     it "sets a quantity instance variable" do
       expect(item.qty).to eq(1)
@@ -30,13 +31,19 @@ describe Item do
   
   describe "#tax" do
     it "returns the total tax for this item" do
-      expect(item.tax).to be(1.50)
+      expect(item.tax).to eq(1.50)
+    end
+  end
+
+  describe "#inc_price" do
+    it "returns the total price including all taxes" do
+      expect(item.inc_price).to eq(11.50)
     end
   end
 
   describe "#to_s" do
     it "returns a string of the item in correct format" do
-      expect(item.to_s).to eq("1, imported cookies, $11.50")
+      expect(item.to_s).to eq("1, imported cookies, 11.50")
     end
   end
 
