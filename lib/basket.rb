@@ -1,19 +1,19 @@
-require_relative 'inventory'
+require_relative "inventory"
 
 class Basket
   attr_reader :items
-  def initialize(items=nil)
+  def initialize()
     @items = []
   end
 
   def add(line)
-    item = line.split(', ')
+    item = line.split(", ")
     qty = item[0].to_i
-    name = item[1].split(' ')
+    name = item[1].split(" ")
     price = item[2].to_f
     imported = false
-    imported = true if name.delete('imported')
-    items << [qty, name.join(' '), price, imported]
+    imported = true if name.delete("imported")
+    items << [qty, name.join(" "), price, imported]
   end
 
   def calc_item_tax(price,tax_rate)
