@@ -34,4 +34,18 @@ describe Basket do
       expect(item_tax2).to eq(1.25)
     end
   end
+
+  describe "#calc_tax_rate" do
+    it "calculates the tax rate on an item" do
+      tax_rate1 = basket.calc_tax_rate('book',false)
+      tax_rate2 = basket.calc_tax_rate('music cd',false)
+      tax_rate3 = basket.calc_tax_rate('bottle of perfume',true)
+      tax_rate4 = basket.calc_tax_rate('headache pills',true)
+
+      expect(tax_rate1).to be(0)
+      expect(tax_rate2).to be(10)
+      expect(tax_rate3).to be(15)
+      expect(tax_rate4).to be(5)
+    end
+  end
 end

@@ -1,3 +1,5 @@
+require_relative 'inventory'
+
 class Basket
   attr_reader :items
   def initialize
@@ -18,5 +20,11 @@ class Basket
     tax = price * tax_rate / 100
 
     return (tax * 20).round / 20.0
+  end
+
+  def calc_tax_rate(name,imported)
+    rate = INVENTORY[name]
+    rate += 5 if imported
+    return rate
   end
 end
