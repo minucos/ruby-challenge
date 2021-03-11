@@ -17,7 +17,7 @@ describe Basket do
     it "sets imported property to true if included in string" do
       basket.add('1, imported chocolates, 5')
       
-      expect(basket.items).to include([1, 'chocolates', 5.0, importer: true])
+      expect(basket.items).to include([1, 'chocolates', 5.0, imported: true])
     end
   end
 end
