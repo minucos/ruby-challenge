@@ -40,5 +40,24 @@ class Basket
     return total_tax
   end
 
-  
+  def calc_basket_total
+    total = 0
+
+    items.each do |item|
+      tax_rate = calc_tax_rate(item[1],item[-1])
+      item_tax = calc_item_tax(item[-2],tax_rate)
+      total += (item[-2] + item_tax) * item[0]
+    end
+
+    return total.round(2)
+  end
+
+  def print_receipt
+    items.each do |item|
+      puts item[0..-2].join(", ")
+    end
+    puts ""
+    puts "Sales Taxes: #{calc_basket_tax}"
+    puts "Total: "
+  end
 end

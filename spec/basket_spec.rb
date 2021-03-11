@@ -67,8 +67,32 @@ describe Basket do
       basket.add('1, chocolate bar, 0.85')
       basket_total = basket.calc_basket_total
 
-      expect(basket_total)to eq(29.83)
+      expect(basket_total).to eq(29.83)
     end
   end
 
+  describe "Basket#print_receipt" do
+    let(:basket_1) { Basket.new }
+    let(:basket_2) { Basket.new }
+    let(:basket_3) { Basket.new }
+    
+    it "outputs a receipt for all items" do
+      # setting up basket_1
+      basket_1.add('1, book, 12.49')
+      basket_1.add('1, music cd, 14.99')
+      basket_1.add('1, chocolate bar, 0.85')
+      # setting up basket_2
+      basket_2.add('1, imported box of chocolates, 10.00')
+      basket_2.add('1, imported bottle of perfume, 47.50')
+      # setting up basket_3
+      basket_3.add('1, imported bottle of perfume, 27.99')
+      basket_3.add('1, bottle of perfume, 18.99')
+      basket_3.add('1, packet of headache pills, 9.75')
+      basket_3.add('1, box of imported chocolates, 11.25')
+
+      expect do basket_1.print_receipt
+      end.to output('1, book, 12.49\n1, music CD, 16.49\n1, chocolate bar, 0.85\n\nSales Taxes: 1.50\nTotal: 29.83')
+      .to_stdout
+    end
+  end
 end
