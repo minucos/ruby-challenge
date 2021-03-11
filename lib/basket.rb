@@ -1,9 +1,12 @@
 require_relative "inventory"
+require_relative "receipt"
 
 class Basket
-  attr_reader :items
+  attr_reader :items, :receipt
+  
   def initialize()
     @items = []
+    @receipt = Receipt.new(self)
   end
 
   def add(item)
@@ -39,11 +42,6 @@ class Basket
   end
 
   def print_receipt
-    items.each do |item|
-      puts item
-    end
-    puts ""
-    puts "Sales Taxes: #{receipt_tax}"
-    puts "Total: #{receipt_total}"
+    puts receipt
   end
 end

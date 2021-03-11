@@ -2,18 +2,22 @@ require "byebug"
 require "basket"
 require "item"
 require "tax"
+require "receipt"
 
 describe Basket do
   subject(:basket) { Basket.new }
   let(:gst) { Tax.new("GST",10)}
   let(:import) { Tax.new("import",5)}
-  let(:item) { Item.new(qty: 1, name: 'Music CD', price: 10, taxes: [gst, import], imported: true)}
-  let(:item_2) { Item.new(qty: 1, name: 'book', price: 5, taxes: [], imported: false)}
-  let(:item_3) { Item.new(qty: 1, name: 'headache pills', price: 15, taxes: [import], imported: true)}
+  let(:item) { Item.new(qty: 1, name: "Music CD", price: 10, taxes: [gst, import], imported: true)}
+  let(:item_2) { Item.new(qty: 1, name: "book", price: 5, taxes: [], imported: false)}
+  let(:item_3) { Item.new(qty: 1, name: "headache pills", price: 15, taxes: [import], imported: true)}
   
   describe "#initalize" do
     it "initalizes with an empty items array" do
       expect(basket.items).to eq([])
+    end
+    it "initalizes with a receipt instance variable" do
+      expect(basket.receipt.class).to eq(Receipt)
     end
   end
 
@@ -75,7 +79,7 @@ describe Basket do
       basket_1.add(
         Item.new(
           qty: 1, 
-          name: 'book', 
+          name: "book", 
           price: 12.49,
           taxes: [], 
           imported: false
@@ -84,7 +88,7 @@ describe Basket do
       basket_1.add(
         Item.new(
           qty: 1, 
-          name: 'music CD', 
+          name: "music CD", 
           price: 14.99,
           taxes: [gst], 
           imported: false
@@ -93,7 +97,7 @@ describe Basket do
       basket_1.add(
         Item.new(
           qty: 1, 
-          name: 'chocolate bar', 
+          name: "chocolate bar", 
           price: 0.85,
           taxes: [], 
           imported: false
@@ -103,7 +107,7 @@ describe Basket do
       basket_2.add(
         Item.new(
           qty: 1, 
-          name: 'box of chocolates', 
+          name: "box of chocolates", 
           price: 10,
           taxes: [import], 
           imported: true
@@ -112,7 +116,7 @@ describe Basket do
       basket_2.add(
         Item.new(
           qty: 1, 
-          name: 'bottle of perfume', 
+          name: "bottle of perfume", 
           price: 47.50,
           taxes: [gst,import], 
           imported: true
@@ -123,7 +127,7 @@ describe Basket do
       basket_3.add(
         Item.new(
           qty: 1, 
-          name: 'bottle of perfume', 
+          name: "bottle of perfume", 
           price: 27.99,
           taxes: [gst,import], 
           imported: true
@@ -132,7 +136,7 @@ describe Basket do
       basket_3.add(
         Item.new(
           qty: 1, 
-          name: 'bottle of perfume', 
+          name: "bottle of perfume", 
           price: 18.99,
           taxes: [gst], 
           imported: false
@@ -141,7 +145,7 @@ describe Basket do
       basket_3.add(
         Item.new(
           qty: 1, 
-          name: 'packet of headache pills', 
+          name: "packet of headache pills", 
           price: 9.75,
           taxes: [], 
           imported: false
@@ -150,7 +154,7 @@ describe Basket do
       basket_3.add(
         Item.new(
           qty: 1, 
-          name: 'box of chocolates', 
+          name: "box of chocolates", 
           price: 11.25,
           taxes: [import], 
           imported: true
