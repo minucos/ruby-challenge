@@ -13,4 +13,10 @@ class Basket
     imported = true if name.delete('imported')
     items << [qty, name.join(' '), price, imported: imported]
   end
+
+  def calc_item_tax(price,tax_rate)
+    tax = price * tax_rate / 100
+
+    return (tax * 20).round / 20.0
+  end
 end

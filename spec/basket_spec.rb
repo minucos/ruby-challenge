@@ -26,10 +26,12 @@ describe Basket do
       expect { basket.calc_item_tax(50,10) }.not_to raise_error
       expect { basket.calc_item_tax(50) }.to raise_error(ArgumentError)
     end
-    it "calculates the tax for item" do
+    it "calculates the tax for item rounded to the nearest 0.05" do
       item_tax = basket.calc_item_tax(50,10)
-
-      expect(item_tax).to be(5.00)
+      item_tax2 = basket.calc_item_tax(12.7,10)
+      
+      expect(item_tax).to eq(5.00)
+      expect(item_tax2).to eq(1.25)
     end
   end
 end
