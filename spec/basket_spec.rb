@@ -1,4 +1,5 @@
 require 'basket'
+require 'byebug'
 
 describe Basket do
   subject(:basket) { Basket.new }
@@ -27,20 +28,32 @@ describe Basket do
       expect { basket.calc_item_tax(50) }.to raise_error(ArgumentError)
     end
     it "calculates the tax for item rounded to the nearest 0.05" do
-      item_tax = basket.calc_item_tax(50,10)
+      item_tax = basket.calc_item_tax(10,5)
       item_tax2 = basket.calc_item_tax(12.7,10)
       
-      expect(item_tax).to eq(5.00)
-      expect(item_tax2).to eq(1.25)
+      expect(item_tax).to eq(0.5)
+      expect(item_tax2).to eq(1.30)
+    end
+  end
+
+  describe "#calc_total_item_cost" do
+    it "calculates the total item cost including tax for a given item" do
+      item_1 = [1, 'book', 12.49, false]
+      item_2 = [1, 'chocolate bar', 10, true]
+      total_item_cost_1 = basket.calc_total_item_cost(item_1)
+      total_item_cost_2 = basket.calc_total_item_cost(item_2)
+      
+      expect(total_item_cost_1).to eq(12.49)
+      expect(total_item_cost_2).to eq(10.50)
     end
   end
 
   describe "#calc_tax_rate" do
     it "calculates the tax rate on an item" do
       tax_rate1 = basket.calc_tax_rate('book',false)
-      tax_rate2 = basket.calc_tax_rate('music cd',false)
+      tax_rate2 = basket.calc_tax_rate('music CD',false)
       tax_rate3 = basket.calc_tax_rate('bottle of perfume',true)
-      tax_rate4 = basket.calc_tax_rate('headache pills',true)
+      tax_rate4 = basket.calc_tax_rate('packet of headache pills',true)
 
       expect(tax_rate1).to be(0)
       expect(tax_rate2).to be(10)
@@ -52,7 +65,7 @@ describe Basket do
   describe "calc_basket_tax" do
     it "calculates the total tax for all items in basket" do
       basket.add('1, book, 12.49')
-      basket.add('1, music cd, 14.99')
+      basket.add('1, music CD, 14.99')
       basket.add('1, chocolate bar, 0.85')
       basket_tax = basket.calc_basket_tax
 
@@ -63,7 +76,7 @@ describe Basket do
   describe "calc_basket_total" do
     it "calculates the total cost of all items in basket" do
       basket.add('1, book, 12.49')
-      basket.add('1, music cd, 14.99')
+      basket.add('1, music CD, 14.99')
       basket.add('1, chocolate bar, 0.85')
       basket_total = basket.calc_basket_total
 
@@ -79,7 +92,7 @@ describe Basket do
     it "outputs a receipt for all items" do
       # setting up basket_1
       basket_1.add('1, book, 12.49')
-      basket_1.add('1, music cd, 14.99')
+      basket_1.add('1, music CD, 14.99')
       basket_1.add('1, chocolate bar, 0.85')
       # setting up basket_2
       basket_2.add('1, imported box of chocolates, 10.00')
@@ -90,8 +103,20 @@ describe Basket do
       basket_3.add('1, packet of headache pills, 9.75')
       basket_3.add('1, box of imported chocolates, 11.25')
 
-      expect do basket_1.print_receipt
-      end.to output('1, book, 12.49\n1, music CD, 16.49\n1, chocolate bar, 0.85\n\nSales Taxes: 1.50\nTotal: 29.83')
+      # expect do basket_1.print_receipt
+      # end.to output(
+      # "1, book, 12.49\n1, music CD, 16.49\n1, chocolate bar, 0.85\n\nSales Taxes: 1.50\nTotal: 29.83\n"
+      # )
+      # .to_stdout
+      # expect do basket_2.print_receipt
+      # end.to output(
+      # "1, imported box of chocolates, 10.50\n1, imported bottle of perfume, 54.65\n\nSales Taxes: 7.65\nTotal: 65.15\n"
+      # )
+      # .to_stdout
+      expect do basket_3.print_receipt
+      end.to output(
+      "1, imported bottle of perfume, 32.19\n1, bottle of perfume, 20.89\n1, packet of headache pills, 9.75\n1, imported box of chocolates, 11.85\n\nSales Taxes: 6.70\nTotal: 74.68\n"
+      )
       .to_stdout
     end
   end

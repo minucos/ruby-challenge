@@ -17,7 +17,7 @@ class Basket
   end
 
   def calc_item_tax(price,tax_rate)
-    tax = price * tax_rate / 100
+    tax = (price * tax_rate / 100.0).ceil(1)
 
     return (tax * 20).round / 20.0
   end
@@ -26,6 +26,13 @@ class Basket
     rate = INVENTORY[name]
     rate += 5 if imported
     return rate
+  end
+
+  def calc_total_item_cost(item)
+    tax_rate = calc_tax_rate(item[1],item[-1])
+    tax = calc_item_tax(item[-2],tax_rate)
+
+    return (item[-2] + tax).round(2)
   end
 
   def calc_basket_tax
@@ -37,7 +44,7 @@ class Basket
       total_tax += item_tax * item[0]
     end
 
-    return total_tax
+    return total_tax.round(2)
   end
 
   def calc_basket_total
@@ -54,10 +61,13 @@ class Basket
 
   def print_receipt
     items.each do |item|
-      puts item[0..-2].join(", ")
+      item_copy = item.dup
+      item_copy[-2] = "%.2f" % calc_total_item_cost(item_copy)
+      item_copy[1] = "imported #{item_copy[1]}" if item_copy[-1]
+      puts item_copy[0..-2].join(", ")
     end
     puts ""
-    puts "Sales Taxes: #{calc_basket_tax}"
-    puts "Total: "
+    puts "Sales Taxes: #{"%.2f" % calc_basket_tax}"
+    puts "Total: #{calc_basket_total}"
   end
 end

@@ -2,9 +2,9 @@
 # value set to the amount of tax a product attracts
 INVENTORY = {
   'book' => 0,
-  'music cd' => 10,
+  'music CD' => 10,
   'chocolate bar' => 0,
   'box of chocolates' => 0,
   'bottle of perfume' => 10,
-  'headache pills' => 0
+  'packet of headache pills' => 0
 }
