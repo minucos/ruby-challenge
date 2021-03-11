@@ -2,7 +2,7 @@ require_relative 'inventory'
 
 class Basket
   attr_reader :items
-  def initialize
+  def initialize(items=nil)
     @items = []
   end
 
@@ -17,9 +17,12 @@ class Basket
   end
 
   def calc_item_tax(price,tax_rate)
-    tax = (price * tax_rate / 100.0).ceil(1)
+    tax = price * tax_rate / 100.0
 
-    return (tax * 20).round / 20.0
+    rounded_tax = (tax * 20).round / 20.0
+
+    return rounded_tax + 0.05 if rounded_tax < tax
+    return rounded_tax
   end
 
   def calc_tax_rate(name,imported)

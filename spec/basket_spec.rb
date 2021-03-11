@@ -103,16 +103,16 @@ describe Basket do
       basket_3.add('1, packet of headache pills, 9.75')
       basket_3.add('1, box of imported chocolates, 11.25')
 
-      # expect do basket_1.print_receipt
-      # end.to output(
-      # "1, book, 12.49\n1, music CD, 16.49\n1, chocolate bar, 0.85\n\nSales Taxes: 1.50\nTotal: 29.83\n"
-      # )
-      # .to_stdout
-      # expect do basket_2.print_receipt
-      # end.to output(
-      # "1, imported box of chocolates, 10.50\n1, imported bottle of perfume, 54.65\n\nSales Taxes: 7.65\nTotal: 65.15\n"
-      # )
-      # .to_stdout
+      expect do basket_1.print_receipt
+      end.to output(
+      "1, book, 12.49\n1, music CD, 16.49\n1, chocolate bar, 0.85\n\nSales Taxes: 1.50\nTotal: 29.83\n"
+      )
+      .to_stdout
+      expect do basket_2.print_receipt
+      end.to output(
+      "1, imported box of chocolates, 10.50\n1, imported bottle of perfume, 54.65\n\nSales Taxes: 7.65\nTotal: 65.15\n"
+      )
+      .to_stdout
       expect do basket_3.print_receipt
       end.to output(
       "1, imported bottle of perfume, 32.19\n1, bottle of perfume, 20.89\n1, packet of headache pills, 9.75\n1, imported box of chocolates, 11.85\n\nSales Taxes: 6.70\nTotal: 74.68\n"
