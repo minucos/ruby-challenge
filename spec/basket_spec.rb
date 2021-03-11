@@ -48,4 +48,15 @@ describe Basket do
       expect(tax_rate4).to be(5)
     end
   end
+
+  describe "calc_basket_tax" do
+    it "calculates the total tax for all items in basket" do
+      basket.add('1, book, 12.49')
+      basket.add('1, music cd, 14.99')
+      basket.add('1, chocolate bar, 0.85')
+      basket_tax = basket.calc_basket_tax
+
+      expect(basket_tax).to eq(1.50)
+    end
+  end
 end
