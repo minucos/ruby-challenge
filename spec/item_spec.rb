@@ -4,13 +4,13 @@ require "tax"
 describe Item do
   let(:gst) { Tax.new("GST",10)}
   let(:import) { Tax.new("import",5)}
-  subject(:item) { Item.new(qty: 1, name: 'cookies', price: 10, taxes: [gst, import], imported: true)}
+  subject(:item) { Item.new(qty: 1, name: 'Music CD', price: 10, taxes: [gst, import], imported: true)}
   describe "#initialize" do
     it "sets a quantity instance variable" do
       expect(item.qty).to eq(1)
     end
     it "sets a name instance variable" do
-      expect(item.name).to eq('cookies')
+      expect(item.name).to eq('Music CD')
     end
     it "sets a price instance variable" do
       expect(item.price).to eq(10)
@@ -41,9 +41,21 @@ describe Item do
     end
   end
 
+  describe "#receipt_name" do
+    it "returns the full name of item for receipt" do
+      expect(item.receipt_name).to eq("imported Music CD")
+    end
+  end
+
+  describe "#receipt_price" do
+    it "returns the inc price as a string to 2 decimal places for receipt" do
+      expect(item.receipt_name).to eq("imported Music CD")
+    end
+  end
+
   describe "#to_s" do
     it "returns a string of the item in correct format" do
-      expect(item.to_s).to eq("1, imported cookies, 11.50")
+      expect(item.to_s).to eq("1, imported Music CD, 11.50")
     end
   end
 

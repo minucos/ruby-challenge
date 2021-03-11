@@ -26,10 +26,21 @@ class Item
     return round_amt
   end
 
+  def inc_price
+    return price + tax
+  end
+
+  def receipt_name
+    return "imported #{name}" if imported
+    return name
+  end
+
+  def receipt_price
+    return "%.2f" % inc_price
+  end
+
   def to_s
-    str_name = name
-    str_name = "imported #{name}" if imported
-    return "#{qty}, #{str_name}, "
+    return "#{qty}, #{receipt_name}, #{receipt_price}"
   end
 
 end
