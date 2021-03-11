@@ -12,12 +12,12 @@ describe Basket do
     it "takes a string as argument, and adds item to items array" do
       basket.add('1, book, 12.49')
 
-      expect(basket.items).to include([1, 'book', 12.49, imported: false])
+      expect(basket.items).to include([1, 'book', 12.49, false])
     end
     it "sets imported property to true if included in string" do
       basket.add('1, imported chocolates, 5')
       
-      expect(basket.items).to include([1, 'chocolates', 5.0, imported: true])
+      expect(basket.items).to include([1, 'chocolates', 5.0, true])
     end
   end
 
@@ -59,4 +59,16 @@ describe Basket do
       expect(basket_tax).to eq(1.50)
     end
   end
+
+  describe "calc_basket_total" do
+    it "calculates the total cost of all items in basket" do
+      basket.add('1, book, 12.49')
+      basket.add('1, music cd, 14.99')
+      basket.add('1, chocolate bar, 0.85')
+      basket_total = basket.calc_basket_total
+
+      expect(basket_total)to eq(29.83)
+    end
+  end
+
 end

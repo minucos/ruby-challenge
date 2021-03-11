@@ -13,7 +13,7 @@ class Basket
     price = item[2].to_f
     imported = false
     imported = true if name.delete('imported')
-    items << [qty, name.join(' '), price, imported: imported]
+    items << [qty, name.join(' '), price, imported]
   end
 
   def calc_item_tax(price,tax_rate)
@@ -27,4 +27,18 @@ class Basket
     rate += 5 if imported
     return rate
   end
+
+  def calc_basket_tax
+    total_tax = 0
+
+    items.each do |item|
+      tax_rate = calc_tax_rate(item[1],item[-1])
+      item_tax = calc_item_tax(item[-2],tax_rate)
+      total_tax += item_tax * item[0]
+    end
+
+    return total_tax
+  end
+
+  
 end
