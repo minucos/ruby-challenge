@@ -3,7 +3,7 @@ require "basket"
 
 describe LoadBasket do
   let(:basket) { Basket.new }
-  let(:file) { File.new("input_2.csv") }
+  let(:file) { File.new("input_1.csv") }
   subject(:load_basket) { LoadBasket.new(basket, file) }
   describe "#initialize" do
     it "initalizes with a basket instance variable" do
@@ -16,10 +16,7 @@ describe LoadBasket do
 
   describe "#parse_file_to_basket" do
     it "reads the given file and adds items to the basket" do
-      load_basket.parse_file_to_basket
-
-      expect(basket.items.count).to be(3)
-      # expect(basket.items.count).to be(3)
+      expect(load_basket.basket.items.count).to be(3)
     end
   end
 end
