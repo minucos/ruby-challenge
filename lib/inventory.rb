@@ -1,10 +1,10 @@
 # Inventory hash is used to represent all items that could be purchased, with a
-# value set to the amount of tax a product attracts
+# value set for if this item attracts GST
 INVENTORY = {
-  'book' => 0,
-  'music CD' => 10,
-  'chocolate bar' => 0,
-  'box of chocolates' => 0,
-  'bottle of perfume' => 10,
-  'packet of headache pills' => 0
+  'book' => false,
+  'music CD' => true,
+  'chocolate bar' => false,
+  'box of chocolates' => false,
+  'bottle of perfume' => true,
+  'packet of headache pills' => false
 }
